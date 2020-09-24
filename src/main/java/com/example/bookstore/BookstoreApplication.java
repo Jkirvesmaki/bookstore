@@ -11,30 +11,36 @@ import org.springframework.context.annotation.Bean;
 
 import com.example.bookstore.model.Book;
 import com.example.bookstore.model.BookRepository;
+import com.example.bookstore.model.Category;
+import com.example.bookstore.model.CategoryRepository;
 
-@SpringBootApplication
-public class BookstoreApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);
+	@SpringBootApplication
+	public class BookstoreApplication {
 	
-	public static void main(String[] args) {
-		SpringApplication.run(BookstoreApplication.class, args);
-	}
-	@Bean
-	public CommandLineRunner studentDemo(BookRepository repository) {
-		return (args) -> {
-			
-
-			log.info("save a couple of books");
-			repository.save(new Book("The Capital", "Marx", 1890, "123-234", 99.90));
-			repository.save(new Book("Nykypaivien Saksa", "Sven", 1935, "123-2346", 9.7));	
-			
-			log.info("fetch all books");
-			for (Book book : repository.findAll()) {
-				log.info(book.toString());
-			}
-
-		};
-	}
+		private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);
+		
+		public static void main(String[] args) {
+			SpringApplication.run(BookstoreApplication.class, args);
+		}
+		@Bean
+		public CommandLineRunner bookDemo(BookRepository brepository, CategoryRepository crepository) {
+			return (args) -> {
+				
 	
-}
+				log.info("save a couple of books");
+				crepository.save(new Category("asd"));
+				crepository.save(new Category("asdaddasdafaf"));
+				brepository.save(new Book("The Capital", "Marx", 1890, "123-234", 99.90,crepository.findByName("asd").get(0)));
+	
+	
+				
+				log.info("fetch all books");
+				for (Book book : brepository.findAll()) {
+					log.info(book.toString());
+				}
+	
+			};
+		}
+		
+	}
