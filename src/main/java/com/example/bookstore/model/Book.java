@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import net.minidev.json.annotate.JsonIgnore;
+
+
+
 @Entity
 public class Book {
 	@Id
@@ -19,6 +23,7 @@ public class Book {
 	private double price;	
 	
 	@ManyToOne
+	@JsonIgnore
     @JoinColumn(name = "categoryId")
     private Category category;
 	
